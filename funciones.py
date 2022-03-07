@@ -29,13 +29,17 @@ def add_client(clients_list,nif,name,address,phone,email):
       phone
       email
     """
-    clients_list[nif].update({
+    """EL problema es que el codigo original machacaba la información anterior. Esto se arregla utilzando el metodo 
+    update para añadir nuevos diccionarios"""
+    clients_list[nif] = {
         nif: {'name': name,
               'address': address,
               'phone': phone,
               'email': email
         }
-    })
+
+    }
+    return clients_list
 
 def repartir_cartas(cartas_iniciales,repeticiones):
     """Dada una baraja de cartas iniciales y un número de repeticiones, esta función selecciona 5 cartas aleatorias de esta baraja y las mete en un diccionario llamado combinaciones. El proceso se repite tantas veces como repeticiones se indiquen.
@@ -45,6 +49,7 @@ def repartir_cartas(cartas_iniciales,repeticiones):
     Returns:
       combinaciones: ej. {'repeticion1': ['contable', 'alguacil', 'asesino', 'cardenal', 'obispo']}
     """    
+    """"""
     combinaciones={}
     for i in range(1,repeticiones+1):
         cartas_aleatorias = cartas_iniciales 
