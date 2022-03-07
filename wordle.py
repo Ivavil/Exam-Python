@@ -14,7 +14,7 @@ def choose_secret():
     print("Lista de líneas leídas: ", lista_lineas)
 
     linea = int(random() * len(lista_lineas))
-    print(lista_lineas[linea])
+    print(lista_lineas[linea].upper())
 
     f.close()
 
@@ -29,6 +29,16 @@ def compare_words():
       same_position: Lista de posiciones de word cuyas letras coinciden en la misma posición en secret. En el caso anterior: [0]
       same_letter: Lista de posiciones de word cuyas letras están en secret pero en posiciones distintas. En el caso anterior: [1,2]
     """
+    same_position = []
+    same_letter = []
+    for i in range(len(secret) -1):
+        if word[i] == secret[i]:
+            same_position.append(i)
+        else:
+            for j in range(len(word)):
+                if word[j] == secret[i]:
+                    same_letter.append(i)
+    return same_position, same_letter
 
 def print_word():
     """Dada una palabra, una lista same_position y otra lista same_letter, esta función creará un string donde aparezcan en mayúsculas las letras de la palabra que ocupen las posiciones de same_position, en minúsculas las letras de la palabra que ocupen las posiciones de same_letter y un guión (-) en el resto de posiciones
@@ -39,6 +49,16 @@ def print_word():
     Returns:
       transformed: La palabra aplicando las transformaciones. En el caso anterior: "Cam--"
     """
+    transformed = []
+    for i in range(len(word)):
+        if same_position.count(i) != 0:
+            transformed.append(word[i])
+        elif same_letter.count(i) != 0:
+            transformed.append(word[i].lower())
+            
+        else:
+            transformed.append("-")
+    return transformed[0] + transformed[1] + transformed[2] + transformed[3] + transformed[4]
     
 def choose_secret_advanced():
     """Dado un nombre de fichero, esta función filtra solo las palabras de 5 letras que no tienen acentos (á,é,í,ó,ú). De estas palabras, la función devuelve una lista de 15 aleatorias no repetidas y una de estas 15, se selecciona aleatoriamente como palabra secret.
@@ -69,3 +89,5 @@ if __name__ == "__main__":
             print("HAS GANADO!!")
             exit()
     print("LO SIENTO, NO LA HAS ADIVINIDADO. LA PALABRA ERA "+secret)   
+
+   
