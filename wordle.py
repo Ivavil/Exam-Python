@@ -1,5 +1,6 @@
+from operator import truediv
 from random import random
-
+from functools import filter
 
 def choose_secret():
     """Dado un nombre de fichero, esta función devuelve una palabra aleatoria de este fichero transformada a mayúsculas.
@@ -11,7 +12,7 @@ def choose_secret():
     f = open("palabras_reduced.txt", mode="rt", encoding="utf-8")
 
     lista_lineas = f.readlines()
-    print("Lista de líneas leídas: ", lista_lineas)
+    if li
 
     linea = int(random() * len(lista_lineas))
     print(lista_lineas[linea].upper())
@@ -58,6 +59,9 @@ def print_word():
             
         else:
             transformed.append("-")
+
+    #for i in range(len(word) - 1):
+        #transformed_word = transformed[i] + transformed[i + 1] 
     return transformed[0] + transformed[1] + transformed[2] + transformed[3] + transformed[4]
     
 def choose_secret_advanced():
@@ -68,16 +72,33 @@ def choose_secret_advanced():
       selected: Lista de 15 palabras aleatorias no repetidas que tienen 5 letras y no tienen acentos
       secret: Palabra elegida aleatoriamente de la lista de 15 seleccionadas transformada a mayúsculas
     """
+    f = open("palabras_extended.txt", mode="rt", encoding="utf-8")
+
+    lista_lineas = f.readlines()
+    lista_lineas_menor_5 = filter(lambda s: len(s) == 5, lista_lineas)
+    print(lista_lineas_menor_5)
+
+    linea = int(random() * len(lista_lineas_menor_5))
+    print(lista_lineas[linea].upper())
+
+    f.close()
+
+    return (lista_lineas[linea]).upper()
  
-def check_valid_word():
+def check_valid_word(selected):
     """Dada una lista de palabras, esta función pregunta al usuario que introduzca una palabra hasta que introduzca una que esté en la lista. Esta palabra es la que devolverá la función.
     Args:
       selected: Lista de palabras.
     Returns:
       word: Palabra introducida por el usuario que está en la lista.
     """
+    if selected.count(word) > 0:
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
+    #secret2=choose_secret_advanced()
     secret=choose_secret()
     print("Palabra a adivinar: "+secret)#Debug: esto es para que sepas la palabra que debes adivinar
     for repeticiones in range(0,6):
@@ -90,4 +111,4 @@ if __name__ == "__main__":
             exit()
     print("LO SIENTO, NO LA HAS ADIVINIDADO. LA PALABRA ERA "+secret)   
 
-   
+    
