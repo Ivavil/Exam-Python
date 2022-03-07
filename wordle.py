@@ -1,6 +1,5 @@
 from operator import truediv
 from random import random
-from functools import filter
 
 def choose_secret():
     """Dado un nombre de fichero, esta función devuelve una palabra aleatoria de este fichero transformada a mayúsculas.
@@ -12,10 +11,14 @@ def choose_secret():
     f = open("palabras_reduced.txt", mode="rt", encoding="utf-8")
 
     lista_lineas = f.readlines()
-    if li
+    if len(lista_lineas) == 0:
+        raise ValueError("EL fichero esta vacio")
 
     linea = int(random() * len(lista_lineas))
-    print(lista_lineas[linea].upper())
+    print(linea)
+
+    for i in range (len(lista_lineas)):
+        lista_lineas[i] = lista_lineas[i][:5]
 
     f.close()
 
@@ -30,6 +33,12 @@ def compare_words():
       same_position: Lista de posiciones de word cuyas letras coinciden en la misma posición en secret. En el caso anterior: [0]
       same_letter: Lista de posiciones de word cuyas letras están en secret pero en posiciones distintas. En el caso anterior: [1,2]
     """
+    if len(word) != len(secret):
+        print(len(word))
+        print(len(secret))
+        print(secret[5])
+        raise ValueError("La longitud de las palabras no es la misma")
+
     same_position = []
     same_letter = []
     for i in range(len(secret) -1):
@@ -50,6 +59,11 @@ def print_word():
     Returns:
       transformed: La palabra aplicando las transformaciones. En el caso anterior: "Cam--"
     """
+    if type(same_letter) != list or type(same_position) != list:
+        raise ValueError("Los parametros no son listas")
+
+    if same_letter.sort()[0] < 0 or same_letter.sort()[len(same_letter) - 1] > len(same_letter) or same_position.sort()[0] < 0 or same_position.sort()[len(same_position) - 1] > len(same_position):
+        raise ValueError("Los valores de los parámetros no son correctos")
     transformed = []
     for i in range(len(word)):
         if same_position.count(i) != 0:
