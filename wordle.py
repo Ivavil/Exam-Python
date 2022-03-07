@@ -62,7 +62,10 @@ def print_word():
     if type(same_letter) != list or type(same_position) != list:
         raise ValueError("Los parametros no son listas")
 
-    if same_letter.sort()[0] < 0 or same_letter.sort()[len(same_letter) - 1] > len(same_letter) or same_position.sort()[0] < 0 or same_position.sort()[len(same_position) - 1] > len(same_position):
+    same_letter_ordered = same_letter.sort()
+    same_position_ordered = same_position.sort()
+
+    if same_letter_ordered[0] < 0 or same_letter_ordered[len(same_letter) - 1] > len(same_letter) or same_position_ordered[0] < 0 or same_position_ordered[len(same_position) - 1] > len(same_position):
         raise ValueError("Los valores de los parámetros no son correctos")
     transformed = []
     for i in range(len(word)):
